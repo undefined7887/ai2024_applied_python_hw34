@@ -17,7 +17,7 @@ $ docker compose up --build
 $ pytest tests
 ```
 
-Отчет по покрытию можно посмотреть в `htmlcov/index.html`.
+Отчет по покрытию можно посмотреть в `coverage_report/index.html`.
 
 ## Запуск нагрузочного тестирования
 
