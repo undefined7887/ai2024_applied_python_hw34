@@ -1,7 +1,7 @@
 from typing import List, Optional
 from datetime import datetime
 
-from sqlalchemy import create_engine, ForeignKey, String, DateTime, Integer
+from sqlalchemy import create_engine, text, ForeignKey, String, DateTime, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker, Mapped, mapped_column, relationship
 
 from app.config import DATABASE_URL
@@ -45,6 +45,16 @@ Session = sessionmaker(bind=engine)
 
 def init_db():
     Base.metadata.create_all(engine)
+
+    # ping the database
+    with Session() as session:
+        try:
+            session.execute(text("SELECT 1"))
+        except Exception as e:
+            print(f"Database connection error: {e}")
+            raise
+        else:
+            print("Database connection successful")
 
 
 def get_db():

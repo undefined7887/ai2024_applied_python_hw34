@@ -15,14 +15,15 @@ from app.config import JWT_EXPIRATION_SECONDS, JWT_SECRET_KEY, JWT_ALGORITHM
 from app.redis import get_redis
 from app.sql import init_db, get_db, User, Link
 
-app = FastAPI()
-
 
 @asynccontextmanager
-async def lifespan():
+async def lifespan(app: FastAPI):
     init_db()
 
     yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 #
